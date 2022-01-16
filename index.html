@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <title>Library App</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            padding: 0;
+            margin: 0;
+        }
+
+        body {
+            font-family: roboto;
+            color: #3F3F42;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .add-book {
+            display: flex;
+            justify-content: center;
+            margin-top: 50px;
+
+        }
+
+        .add-book button {
+            padding: 20px;
+        }
+
+        .library-cards-container {
+            margin-top: 50px;
+            display: flex;
+            gap: 50px;
+            justify-content: center;
+        }
+
+        .card {
+            border: 1px solid #ccc;
+            width: 200px;
+            padding: 20px;
+        }
+
+        #item1 {
+            color:red;
+         }
+         #item2 {
+             color:green;
+         }
+
+    </style>
+</head>
+
+<body>
+
+    <h1>Welcome to my library app</h1>
+    <div class="add-book">
+
+        <form method="dialog">
+            <ul>
+                <li>
+                    <label for="title-input">Title: </label>
+                    <input type="text" id="title-input" name="book-title">
+                </li>
+    
+                <li>
+                    <label for="author-input">Author: </label>
+                    <input type="text" id="author-input" name="book-title">
+                </li>
+    
+                <li>
+                    <label for="pages-input">Pages: </label>
+                    <input type="number" id="pages-input" name="book-pages">
+                </li>
+    
+                <li class="button">
+                    <button id="form-btn" type="submit">Add book</button>
+                </li>
+            </ul>
+        </form>
+        <button id="new-book-btn">Add new book</button>
+
+    </div>
+    <div class="library-cards-container">
+
+        <div class="card">
+            <ul>
+                <li id="card1-title">Title:</li>
+                <li>Author:</li>
+                <li>Pages</li>
+                <li>Has this been read?</li>
+            </ul>
+        </div>
+   
+    </div>
+
+    <script>
+
+        const btn = document.querySelector("#new-book-btn");
+        btn.addEventListener('click', () => {
+
+            let libraryCards = document.querySelector('.library-cards-container');
+            let card = document.createElement('div');
+            card.className = "card";
+            libraryCards.appendChild(card);
+
+
+            let list = document.createElement('ul');
+            for (i = 1; i <= 3; i++) {
+                let listItemsLoop = document.createElement('li');
+                listItemsLoop.setAttribute('id', "item"+i);
+                listItemsLoop.innerText = "Some text here";
+                list.appendChild(listItemsLoop);
+            }
+
+            card.appendChild(list);
+
+
+        })
+
+
+        let myLibrary = [];
+
+        function Book(title, author, pages, hasBeenRead) {
+            this.title = title;
+            this.author = author;
+            this.pages = pages;
+            this.hasBeenRead = hasBeenRead;
+        }
+
+        function addBookToLibrary(book) {
+            let title = document.querySelector("#card1-title");
+            title.textContent = `Title: ${book.title}`
+        }
+
+        const bible = new Book("Bible", "God", 500, true)
+        addBookToLibrary(bible);
+//console.log(bible.pages);
+    </script>
+
+</body>
+
+</html>
