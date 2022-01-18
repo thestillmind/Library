@@ -51,12 +51,12 @@
         }
 
         #item1 {
-            color:red;
-         }
-         #item2 {
-             color:green;
-         }
+            color: red;
+        }
 
+        #item2 {
+            color: green;
+        }
     </style>
 </head>
 
@@ -71,17 +71,17 @@
                     <label for="title-input">Title: </label>
                     <input type="text" id="title-input" name="book-title">
                 </li>
-    
+
                 <li>
                     <label for="author-input">Author: </label>
                     <input type="text" id="author-input" name="book-title">
                 </li>
-    
+
                 <li>
                     <label for="pages-input">Pages: </label>
                     <input type="number" id="pages-input" name="book-pages">
                 </li>
-    
+
                 <li class="button">
                     <button id="form-btn" type="submit">Add book</button>
                 </li>
@@ -100,51 +100,86 @@
                 <li>Has this been read?</li>
             </ul>
         </div>
-   
     </div>
 
     <script>
 
+        let myLibrary = [];
+
+        function Book(title, author, pages) {
+            this.title = title;
+            this.author = author;
+            this.pages = pages;
+        }
+
+        function addBookToLibrary() {
+
+
+            // myLibrary.forEach(function (element) {
+            //     var keys = Object.keys(element);
+            //   //  console.log(keys);
+
+            //     for (var i = 0; i < keys.length; i++) {
+            //         let keyProp = element[keys[i]];
+            //         console.log(keyProp);
+            //     }
+            //     // console.log(myLibrary.length);
+            //     //  console.log(myLibrary);
+            // });
+
+            let libraryCards = document.querySelector('.library-cards-container');
+            let card = document.createElement('div');
+            card.className = "card";
+
+            let list = document.createElement('ul');
+
+            var keys = Object.keys(myLibrary[myLibrary.length - 1]);
+            console.log(`keys are ${keys}`);
+            for (var i = 0; i < keys.length; i++) {
+                let keyProp = myLibrary[myLibrary.length - 1][keys[i]];
+                console.log(keyProp);
+                let listItem = document.createElement('li');
+                listItem.setAttribute('id', keyProp);
+                listItem.innerText = keyProp;
+                list.appendChild(listItem);
+            }
+
+            card.appendChild(list);
+            libraryCards.appendChild(card);
+
+        }
+
+        const button = document.querySelector("#form-btn");
+        button.style.color = "blue";
+        const title = document.querySelector('#title-input');
+        const author = document.querySelector('#author-input');
+        const pages = document.querySelector('#pages-input');
+
+        button.addEventListener('click', () => {
+            let foo = new Book(title.value, author.value, pages.value);
+            myLibrary.push(foo);
+            addBookToLibrary();
+        });
+
         const btn = document.querySelector("#new-book-btn");
         btn.addEventListener('click', () => {
-
             let libraryCards = document.querySelector('.library-cards-container');
             let card = document.createElement('div');
             card.className = "card";
             libraryCards.appendChild(card);
 
-
             let list = document.createElement('ul');
             for (i = 1; i <= 3; i++) {
                 let listItemsLoop = document.createElement('li');
-                listItemsLoop.setAttribute('id', "item"+i);
+                listItemsLoop.setAttribute('id', "item" + i);
                 listItemsLoop.innerText = "Some text here";
                 list.appendChild(listItemsLoop);
             }
-
             card.appendChild(list);
+        });
 
+       /// console.log(myLibrary);
 
-        })
-
-
-        let myLibrary = [];
-
-        function Book(title, author, pages, hasBeenRead) {
-            this.title = title;
-            this.author = author;
-            this.pages = pages;
-            this.hasBeenRead = hasBeenRead;
-        }
-
-        function addBookToLibrary(book) {
-            let title = document.querySelector("#card1-title");
-            title.textContent = `Title: ${book.title}`
-        }
-
-        const bible = new Book("Bible", "God", 500, true)
-        addBookToLibrary(bible);
-//console.log(bible.pages);
     </script>
 
 </body>
