@@ -87,7 +87,7 @@
                 </li>
             </ul>
         </form>
-     
+
     </div>
     <div class="library-cards-container">
 
@@ -111,60 +111,56 @@
             this.pages = pages;
         }
 
-        function addBookToLibrary(title) {
-            let libraryCards = document.querySelector('.library-cards-container');
-            let card = document.createElement('div');
-            card.setAttribute('id',title + "-card");
-            card.className = "card";
-            let list = document.createElement('ul');
-
-            var keys = Object.keys(myLibrary[myLibrary.length - 1]);
-            for (var i = 0; i < keys.length; i++) {
-                let keyProp = myLibrary[myLibrary.length - 1][keys[i]];
-
-                let listItem = document.createElement('li');
-                listItem.setAttribute('id', keyProp);
-                listItem.innerText = `${keys[i]}: ${keyProp}`;
-                list.appendChild(listItem);
-            }
-            card.appendChild(list);
-            let btn = document.createElement('button');
-            btn.setAttribute('id',title + "-btn");
-            btn.innerText = "Remove book";
-            card.appendChild(btn);
-            libraryCards.appendChild(card);
-
-
-        console.log("does this ever run?");
-      const removeBookBtn = document.querySelector(`#${(title+"-btn")}`);
-      console.log(removeBookBtn);
-      removeBookBtn.addEventListener('click', () => {
-        alert("remove button you pressed! Prepare for destruction!");
-     let divToDelete= document.querySelector(`#${title}-card`);
-        divToDelete.style.display="none";    
-    });
-
-        }
-
-
-
         const addBookBtn = document.querySelector("#form-btn");
         addBookBtn.style.color = "blue";
         const title = document.querySelector('#title-input');
         const author = document.querySelector('#author-input');
         const pages = document.querySelector('#pages-input');
-        let counter=0;
         addBookBtn.addEventListener('click', () => {
-        
+
             let foo = new Book(title.value, author.value, pages.value);
             myLibrary.push(foo);
             addBookToLibrary(title.value);
         });
 
+       let libraryCards = document.querySelector('.library-cards-container');
 
-     
+       
+        function addBookToLibrary(title) {
+            
+            let card = document.createElement('div');
+            card.setAttribute('id', title + "-card");
+            card.className = "card";
+            let list = document.createElement('ul');
 
-       /// console.log(myLibrary);
+            var keys = Object.keys(myLibrary[myLibrary.length - 1]);
+            console.log(myLibrary[myLibrary.length - 1]);
+            for (var i = 0; i < keys.length; i++) {
+                let keyProp = myLibrary[myLibrary.length - 1][keys[i]];
+                let listItem = document.createElement('li');
+                listItem.setAttribute('id', keyProp);
+                listItem.innerText = `${keys[i]}: ${keyProp}`;
+                list.appendChild(listItem);
+            }
+
+            card.appendChild(list);
+            let btn = document.createElement('button');
+            btn.setAttribute('id', title + "-btn");
+            btn.innerText = "Remove book";
+            card.appendChild(btn);
+            libraryCards.appendChild(card);
+            deleteBookCard(title);
+        }
+
+
+        function deleteBookCard(title) {
+            const removeBookBtn = document.querySelector(`#${(title + "-btn")}`);
+            console.log(removeBookBtn);
+            removeBookBtn.addEventListener('click', () => {
+                let divToDelete = document.querySelector(`#${title}-card`);
+                divToDelete.style.display = "none";
+            });
+        }            
 
     </script>
 
