@@ -120,20 +120,86 @@
 
             let foo = new Book(title.value, author.value, pages.value);
             myLibrary.push(foo);
-            addBookToLibrary(title.value);
+            addBooksToPage()
+            
         });
 
        let libraryCards = document.querySelector('.library-cards-container');
 
-       
-        function addBookToLibrary(title) {
+        function addBooksToPage(){
+            libraryCards.innerHTML="";
+            createBook();
+        }
+
+
+       function createBook(){   
+            myLibrary.forEach(element => {
+                let bookId = myLibrary.indexOf(element);
+                let card = document.createElement('div');
+            card.setAttribute('id', "bookCard"+bookId);
+            card.className = "card";
+            let list = document.createElement('ul');
+
+            let keys = Object.keys(element);
+         for (var i = 0; i < keys.length; i++) {
+               let keyProp = element[keys[i]];
+                let listItem = document.createElement('li');
+                listItem.setAttribute('id', keyProp);
+                listItem.innerText = `${keys[i]}: ${keyProp}`;
+                list.appendChild(listItem);             
+            }
+        
+            card.appendChild(list);
+            let btn = document.createElement('button');
+            btn.setAttribute('id', "rmvBtn"+bookId);
+            btn.innerText = "Remove book";
+            card.appendChild(btn);
+            libraryCards.appendChild(card);
+            deleteBookCard(bookId);
+          
+            });
             
+       }
+
+
+       /*function createBook(){   
+            myLibrary.forEach(element => {
+                let bookId = myLibrary.indexOf(element);
+                let card = document.createElement('div');
+            card.setAttribute('id', "bookCard"+bookId);
+            card.className = "card";
+            let list = document.createElement('ul');
+
+            let keys = Object.keys(element);
+         for (var i = 0; i < keys.length; i++) {
+               let keyProp = element[keys[i]];
+                             let listItem = document.createElement('li');
+                listItem.setAttribute('id', keyProp);
+                listItem.innerText = `${keys[i]}: ${keyProp}`;
+                list.appendChild(listItem);             
+            }
+        
+            card.appendChild(list);
+            let btn = document.createElement('button');
+            btn.setAttribute('id', "rmvBtn"+bookId);
+            btn.innerText = "Remove book";
+            card.appendChild(btn);
+            libraryCards.appendChild(card);
+            deleteBookCard(bookId);
+          
+            });
+            
+       }*/
+
+
+       /* function addBookToLibrary(title) {            
             let card = document.createElement('div');
             card.setAttribute('id', title + "-card");
             card.className = "card";
             let list = document.createElement('ul');
 
             var keys = Object.keys(myLibrary[myLibrary.length - 1]);
+
             console.log(myLibrary[myLibrary.length - 1]);
             for (var i = 0; i < keys.length; i++) {
                 let keyProp = myLibrary[myLibrary.length - 1][keys[i]];
@@ -149,18 +215,28 @@
             btn.innerText = "Remove book";
             card.appendChild(btn);
             libraryCards.appendChild(card);
-            deleteBookCard(title);
-        }
+            deleteBookCard(bookId);
+        }*/
 
+        function deleteBookCard(bookId) {
+            const removeBookBtn = document.querySelector(`#rmvBtn${bookId}`);
+                      removeBookBtn.addEventListener('click', () => {
+            alert("Hello bookId is: " + bookId);
+            myLibrary.splice(bookId, 1);
+            console.log(myLibrary);
+            addBooksToPage();
+              });
+        }     
 
-        function deleteBookCard(title) {
-            const removeBookBtn = document.querySelector(`#${(title + "-btn")}`);
-            console.log(removeBookBtn);
-            removeBookBtn.addEventListener('click', () => {
-                let divToDelete = document.querySelector(`#${title}-card`);
-                divToDelete.style.display = "none";
-            });
-        }            
+        // function deleteBookCard(title) {
+        //     const removeBookBtn = document.querySelector(`#${(title + "-btn")}`);
+        //   //  console.log(removeBookBtn);
+        //     removeBookBtn.addEventListener('click', () => {
+            
+        //         let divToDelete = document.querySelector(`#${title}-card`);
+        //         divToDelete.style.display = "none";
+        //     });
+        // }            
 
     </script>
 
