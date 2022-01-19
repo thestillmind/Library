@@ -87,8 +87,7 @@
                 </li>
             </ul>
         </form>
-        <button id="new-book-btn">Add new book</button>
-
+     
     </div>
     <div class="library-cards-container">
 
@@ -112,12 +111,11 @@
             this.pages = pages;
         }
 
-        function addBookToLibrary() {
-
+        function addBookToLibrary(title) {
             let libraryCards = document.querySelector('.library-cards-container');
             let card = document.createElement('div');
+            card.setAttribute('id',title + "-card");
             card.className = "card";
-
             let list = document.createElement('ul');
 
             var keys = Object.keys(myLibrary[myLibrary.length - 1]);
@@ -130,42 +128,41 @@
                 list.appendChild(listItem);
             }
             card.appendChild(list);
-
             let btn = document.createElement('button');
+            btn.setAttribute('id',title + "-btn");
             btn.innerText = "Remove book";
             card.appendChild(btn);
-
             libraryCards.appendChild(card);
+
+
+        console.log("does this ever run?");
+      const removeBookBtn = document.querySelector(`#${(title+"-btn")}`);
+      console.log(removeBookBtn);
+      removeBookBtn.addEventListener('click', () => {
+        alert("remove button you pressed! Prepare for destruction!");
+     let divToDelete= document.querySelector(`#${title}-card`);
+        divToDelete.style.display="none";    
+    });
+
         }
 
-        const button = document.querySelector("#form-btn");
-        button.style.color = "blue";
+
+
+        const addBookBtn = document.querySelector("#form-btn");
+        addBookBtn.style.color = "blue";
         const title = document.querySelector('#title-input');
         const author = document.querySelector('#author-input');
         const pages = document.querySelector('#pages-input');
-
-        button.addEventListener('click', () => {
+        let counter=0;
+        addBookBtn.addEventListener('click', () => {
+        
             let foo = new Book(title.value, author.value, pages.value);
             myLibrary.push(foo);
-            addBookToLibrary();
+            addBookToLibrary(title.value);
         });
 
-        const btn = document.querySelector("#new-book-btn");
-        btn.addEventListener('click', () => {
-            let libraryCards = document.querySelector('.library-cards-container');
-            let card = document.createElement('div');
-            card.className = "card";
-            libraryCards.appendChild(card);
 
-            let list = document.createElement('ul');
-            for (i = 1; i <= 3; i++) {
-                let listItemsLoop = document.createElement('li');
-                listItemsLoop.setAttribute('id', "item" + i);
-                listItemsLoop.innerText = "Some text here";
-                list.appendChild(listItemsLoop);
-            }
-            card.appendChild(list);
-        });
+     
 
        /// console.log(myLibrary);
 
