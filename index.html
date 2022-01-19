@@ -82,6 +82,16 @@
                     <input type="number" id="pages-input" name="book-pages">
                 </li>
 
+                <li>
+                    <label for="hasBeenRead-input">Has been read: </label>
+                    <input type = "radio" id="hasBeenRead-input" name="book-hasBeenRead" value="true" checked="checked">
+
+                </li>
+                <li>
+                    <label for="hasNotBeenRead-input">Has not been read: </label>
+                    <input type = "radio" id="hasNotBeenRead-input" name="book-hasBeenRead" value="false">
+                </li>
+
                 <li class="button">
                     <button id="form-btn" type="submit">Add book</button>
                 </li>
@@ -105,10 +115,11 @@
 
         let myLibrary = [];
 
-        function Book(title, author, pages) {
+        function Book(title, author, pages, hasBeenRead) {
             this.title = title;
             this.author = author;
             this.pages = pages;
+            this.BeenRead = hasBeenRead;
         }
 
         const addBookBtn = document.querySelector("#form-btn");
@@ -116,12 +127,19 @@
         const title = document.querySelector('#title-input');
         const author = document.querySelector('#author-input');
         const pages = document.querySelector('#pages-input');
+        console.log("When does this run?");
+      
+        
         addBookBtn.addEventListener('click', () => {
-
-            let foo = new Book(title.value, author.value, pages.value);
+            const hasBeenRead = document.querySelector('input[name="book-hasBeenRead"]:checked');
+      
+            console.log("Yo! "+hasBeenRead.value);
+            let foo = new Book(title.value, author.value, pages.value, hasBeenRead.value);
             myLibrary.push(foo);
-            addBooksToPage()
-            
+            addBooksToPage();
+           
+     
+            console.log(hasBeenRead);
         });
 
        let libraryCards = document.querySelector('.library-cards-container');
@@ -145,6 +163,7 @@
                let keyProp = element[keys[i]];
                 let listItem = document.createElement('li');
                 listItem.setAttribute('id', keyProp);
+                
                 listItem.innerText = `${keys[i]}: ${keyProp}`;
                 list.appendChild(listItem);             
             }
@@ -155,68 +174,10 @@
             btn.innerText = "Remove book";
             card.appendChild(btn);
             libraryCards.appendChild(card);
-            deleteBookCard(bookId);
-          
+            deleteBookCard(bookId);          
             });
             
        }
-
-
-       /*function createBook(){   
-            myLibrary.forEach(element => {
-                let bookId = myLibrary.indexOf(element);
-                let card = document.createElement('div');
-            card.setAttribute('id', "bookCard"+bookId);
-            card.className = "card";
-            let list = document.createElement('ul');
-
-            let keys = Object.keys(element);
-         for (var i = 0; i < keys.length; i++) {
-               let keyProp = element[keys[i]];
-                             let listItem = document.createElement('li');
-                listItem.setAttribute('id', keyProp);
-                listItem.innerText = `${keys[i]}: ${keyProp}`;
-                list.appendChild(listItem);             
-            }
-        
-            card.appendChild(list);
-            let btn = document.createElement('button');
-            btn.setAttribute('id', "rmvBtn"+bookId);
-            btn.innerText = "Remove book";
-            card.appendChild(btn);
-            libraryCards.appendChild(card);
-            deleteBookCard(bookId);
-          
-            });
-            
-       }*/
-
-
-       /* function addBookToLibrary(title) {            
-            let card = document.createElement('div');
-            card.setAttribute('id', title + "-card");
-            card.className = "card";
-            let list = document.createElement('ul');
-
-            var keys = Object.keys(myLibrary[myLibrary.length - 1]);
-
-            console.log(myLibrary[myLibrary.length - 1]);
-            for (var i = 0; i < keys.length; i++) {
-                let keyProp = myLibrary[myLibrary.length - 1][keys[i]];
-                let listItem = document.createElement('li');
-                listItem.setAttribute('id', keyProp);
-                listItem.innerText = `${keys[i]}: ${keyProp}`;
-                list.appendChild(listItem);
-            }
-
-            card.appendChild(list);
-            let btn = document.createElement('button');
-            btn.setAttribute('id', title + "-btn");
-            btn.innerText = "Remove book";
-            card.appendChild(btn);
-            libraryCards.appendChild(card);
-            deleteBookCard(bookId);
-        }*/
 
         function deleteBookCard(bookId) {
             const removeBookBtn = document.querySelector(`#rmvBtn${bookId}`);
@@ -228,16 +189,7 @@
               });
         }     
 
-        // function deleteBookCard(title) {
-        //     const removeBookBtn = document.querySelector(`#${(title + "-btn")}`);
-        //   //  console.log(removeBookBtn);
-        //     removeBookBtn.addEventListener('click', () => {
-            
-        //         let divToDelete = document.querySelector(`#${title}-card`);
-        //         divToDelete.style.display = "none";
-        //     });
-        // }            
-
+       
     </script>
 
 </body>
