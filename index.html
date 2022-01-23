@@ -119,7 +119,7 @@
             this.title = title;
             this.author = author;
             this.pages = pages;
-            this.BeenRead = hasBeenRead;
+            this["Has this been read?"] = hasBeenRead;
         }
 
         const addBookBtn = document.querySelector("#form-btn");
@@ -136,8 +136,7 @@
             console.log("Yo! "+hasBeenRead.value);
             let foo = new Book(title.value, author.value, pages.value, hasBeenRead.value);
             myLibrary.push(foo);
-            addBooksToPage();
-           
+            addBooksToPage();          
      
             console.log(hasBeenRead);
         });
@@ -149,7 +148,7 @@
             createBook();
         }
 
-/*
+
        function createBook(){   
             myLibrary.forEach(element => {
                 let bookId = myLibrary.indexOf(element);
@@ -165,10 +164,10 @@
                 
                 let listItem = document.createElement('li');
                 listItem.setAttribute('id', keyProp);                    
-                listItem.innerText = `${keys[i]}: ${keyProp}`;                
+                listItem.innerText = `${keys[i]} ${keyProp}`;                
                 list.appendChild(listItem);                                  
             }
-            list.lastElementChild.innerText = "Has this been read: "+element.BeenRead;
+          
             card.appendChild(list);
             
             let btn = document.createElement('button');
@@ -179,7 +178,7 @@
             deleteBookCard(bookId);          
             });
             
-       } */
+       } 
 
         function deleteBookCard(bookId) {
             const removeBookBtn = document.querySelector(`#rmvBtn${bookId}`);
