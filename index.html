@@ -149,7 +149,7 @@
             createBook();
         }
 
-
+/*
        function createBook(){   
             myLibrary.forEach(element => {
                 let bookId = myLibrary.indexOf(element);
@@ -159,6 +159,7 @@
             let list = document.createElement('ul');
 
             let keys = Object.keys(element);
+            console.log("keys are: " + keys);
              for (var i = 0; i < keys.length; i++) {
              let keyProp = element[keys[i]];
                 
@@ -169,7 +170,7 @@
             }
             list.lastElementChild.innerText = "Has this been read: "+element.BeenRead;
             card.appendChild(list);
-  
+            
             let btn = document.createElement('button');
             btn.setAttribute('id', "rmvBtn"+bookId);
             btn.innerText = "Remove book";
@@ -178,7 +179,7 @@
             deleteBookCard(bookId);          
             });
             
-       }
+       } */
 
         function deleteBookCard(bookId) {
             const removeBookBtn = document.querySelector(`#rmvBtn${bookId}`);
