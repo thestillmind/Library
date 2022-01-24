@@ -182,10 +182,21 @@
 
             libraryCards.appendChild(card);
             deleteBookCard(bookId);
-              
+              hasBeenReadToggle(bookId);
             });            
        } 
 
+       function hasBeenReadToggle(bookId) {
+        const hasBeenReadBtn = document.querySelector("#beenRead"+bookId);
+        hasBeenReadBtn.addEventListener('click', () => {
+            alert("red alert!");
+          // console.log(myLibrary[bookId]["Has this been read"]);
+            let bool = myLibrary[bookId]["Has this been read"];
+            myLibrary[bookId]["Has this been read"] = !bool;
+                   
+            addBooksToPage();           
+        });
+       }
 
         function deleteBookCard(bookId) {
             const removeBookBtn = document.querySelector(`#rmvBtn${bookId}`);
