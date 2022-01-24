@@ -119,7 +119,7 @@
             this.title = title;
             this.author = author;
             this.pages = pages;
-            this["Has this been read?"] = hasBeenRead;
+            this["Has this been read"] = hasBeenRead;
         }
 
         const addBookBtn = document.querySelector("#form-btn");
@@ -164,21 +164,28 @@
                 
                 let listItem = document.createElement('li');
                 listItem.setAttribute('id', keyProp);                    
-                listItem.innerText = `${keys[i]} ${keyProp}`;                
+                listItem.innerText = `${keys[i]}: ${keyProp}`;                
                 list.appendChild(listItem);                                  
             }
           
             card.appendChild(list);
             
-            let btn = document.createElement('button');
-            btn.setAttribute('id', "rmvBtn"+bookId);
-            btn.innerText = "Remove book";
-            card.appendChild(btn);
+            let removeBookBtn = document.createElement('button');
+            removeBookBtn.setAttribute('id', "rmvBtn"+bookId);
+            removeBookBtn.innerText = "Remove book";
+            card.appendChild(removeBookBtn);
+
+            let beenReadBtn = document.createElement('button');
+            beenReadBtn.setAttribute('id', "beenRead"+bookId);
+            beenReadBtn.innerText = "Has been read?";
+            card.appendChild(beenReadBtn);
+
             libraryCards.appendChild(card);
-            deleteBookCard(bookId);          
-            });
-            
+            deleteBookCard(bookId);
+              
+            });            
        } 
+
 
         function deleteBookCard(bookId) {
             const removeBookBtn = document.querySelector(`#rmvBtn${bookId}`);
