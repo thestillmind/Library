@@ -84,12 +84,12 @@
 
                 <li>
                     <label for="hasBeenRead-input">Has been read: </label>
-                    <input type = "radio" id="hasBeenRead-input" name="book-hasBeenRead" value="true" checked="checked">
+                    <input type = "radio" id="hasBeenRead-input" name="book-hasBeenRead" value="yes" checked="checked">
 
                 </li>
                 <li>
                     <label for="hasNotBeenRead-input">Has not been read: </label>
-                    <input type = "radio" id="hasNotBeenRead-input" name="book-hasBeenRead" value="false">
+                    <input type = "radio" id="hasNotBeenRead-input" name="book-hasBeenRead" value="no">
                 </li>
 
                 <li class="button">
@@ -123,18 +123,16 @@
         }
 
         Book.prototype.toggleRead = function() {
-            if (this["Has this been read"]=="true") {
-                this["Has this been read"] = "false";                
+            if (this["Has this been read"]=="yes") {
+                this["Has this been read"] = "no";                
             }
 
-            else if  (this["Has this been read"]=="false") { 
-                this["Has this been read"] = "true";
-            }
-    
+            else if  (this["Has this been read"]=="no") { 
+                this["Has this been read"] = "yes";
+            }    
 
             addBooksToPage();
         }
-
 
         const addBookBtn = document.querySelector("#form-btn");
         addBookBtn.style.color = "blue";
