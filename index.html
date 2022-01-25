@@ -7,64 +7,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <title>Library App</title>
 
     <style>
-        * {
-            box-sizing: border-box;
-            padding: 0;
-            margin: 0;
-        }
-
-        body {
-            font-family: roboto;
-            color: #3F3F42;
-        }
-
-        h1 {
-            text-align: center;
-        }
-
-        .add-book {
-            display: flex;
-            justify-content: center;
-            margin-top: 50px;
-
-        }
-
-        .add-book button {
-            padding: 20px;
-        }
-
-        .library-cards-container {
-            margin-top: 50px;
-            display: flex;
-            gap: 50px;
-            justify-content: center;
-        }
-
-        .card {
-            border: 1px solid #ccc;
-            width: 200px;
-            padding: 20px;
-        }
-
-        #item1 {
-            color: red;
-        }
-
-        #item2 {
-            color: green;
-        }
+   
     </style>
 </head>
 
 <body>
-
+    <div class="page-container">
     <h1>Welcome to my library app</h1>
-    <div class="add-book">
+    <div class="add-book-container">
 
+        <div class="form-container">
         <form method="dialog">
             <ul>
                 <li>
@@ -82,22 +39,24 @@
                     <input type="number" id="pages-input" name="book-pages">
                 </li>
 
-                <li>
+                <li class="has-been-read">
                     <label for="hasBeenRead-input">Has been read: </label>
                     <input type = "radio" id="hasBeenRead-input" name="book-hasBeenRead" value="yes" checked="checked">
 
                 </li>
-                <li>
+                <li class="has-been-read">
                     <label for="hasNotBeenRead-input">Has not been read: </label>
                     <input type = "radio" id="hasNotBeenRead-input" name="book-hasBeenRead" value="no">
                 </li>
 
-                <li class="button">
-                    <button id="form-btn" type="submit">Add book</button>
+                <li>
                 </li>
             </ul>
+               
         </form>
-
+        <button id="form-btn" type="submit">Add book</button>
+            
+</div>
     </div>
     <div class="library-cards-container">
 
@@ -111,6 +70,9 @@
         </div>
     </div>
 
+    <footer>
+        <span>You can copy this if you want</span></footer>
+</div>
     <script>
 
         let myLibrary = [];
@@ -135,7 +97,7 @@
         }
 
         const addBookBtn = document.querySelector("#form-btn");
-        addBookBtn.style.color = "blue";
+       
         const title = document.querySelector('#title-input');
         const author = document.querySelector('#author-input');
         const pages = document.querySelector('#pages-input');
@@ -179,20 +141,25 @@
           
             card.appendChild(list);
             
-            let removeBookBtn = document.createElement('button');
-            removeBookBtn.setAttribute('id', "rmvBtn"+bookId);
-            removeBookBtn.innerText = "Remove book";
-            card.appendChild(removeBookBtn);
-
             let beenReadBtn = document.createElement('button');
             beenReadBtn.setAttribute('id', "beenRead"+bookId);
             beenReadBtn.innerText = "Has been read?";
             card.appendChild(beenReadBtn);
 
+
+            let removeBookBtn = document.createElement('button');
+            removeBookBtn.setAttribute('id', "rmvBtn"+bookId);
+            removeBookBtn.innerText = "Remove book";
+            card.appendChild(removeBookBtn);
+
+           
+
             libraryCards.appendChild(card);
             deleteBookCard(bookId);
               hasBeenReadToggle(bookId);
-            });            
+            });     
+            
+            
        } 
 
        function hasBeenReadToggle(bookId) {
