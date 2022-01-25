@@ -122,23 +122,34 @@
             this["Has this been read"] = hasBeenRead;
         }
 
+        Book.prototype.toggleRead = function() {
+            if (this["Has this been read"]=="true") {
+                this["Has this been read"] = "false";                
+            }
+
+            else if  (this["Has this been read"]=="false") { 
+                this["Has this been read"] = "true";
+            }
+    
+
+            addBooksToPage();
+        }
+
+
         const addBookBtn = document.querySelector("#form-btn");
         addBookBtn.style.color = "blue";
         const title = document.querySelector('#title-input');
         const author = document.querySelector('#author-input');
         const pages = document.querySelector('#pages-input');
-        console.log("When does this run?");
+       
       
         
         addBookBtn.addEventListener('click', () => {
-            const hasBeenRead = document.querySelector('input[name="book-hasBeenRead"]:checked');
-      
-            console.log("Yo! "+hasBeenRead.value);
+            let hasBeenRead = document.querySelector('input[name="book-hasBeenRead"]:checked');         
             let foo = new Book(title.value, author.value, pages.value, hasBeenRead.value);
             myLibrary.push(foo);
             addBooksToPage();          
-     
-            console.log(hasBeenRead);
+   
         });
 
        let libraryCards = document.querySelector('.library-cards-container');
@@ -158,7 +169,7 @@
             let list = document.createElement('ul');
 
             let keys = Object.keys(element);
-            console.log("keys are: " + keys);
+            
              for (var i = 0; i < keys.length; i++) {
              let keyProp = element[keys[i]];
                 
@@ -189,21 +200,18 @@
        function hasBeenReadToggle(bookId) {
         const hasBeenReadBtn = document.querySelector("#beenRead"+bookId);
         hasBeenReadBtn.addEventListener('click', () => {
-            alert("red alert!");
-          // console.log(myLibrary[bookId]["Has this been read"]);
-            let bool = myLibrary[bookId]["Has this been read"];
-            myLibrary[bookId]["Has this been read"] = !bool;
-                   
-            addBooksToPage();           
+          
+           myLibrary[bookId].toggleRead();   
+
         });
        }
 
         function deleteBookCard(bookId) {
             const removeBookBtn = document.querySelector(`#rmvBtn${bookId}`);
                       removeBookBtn.addEventListener('click', () => {
-            alert("Hello bookId is: " + bookId);
+       
             myLibrary.splice(bookId, 1);
-            console.log(myLibrary);
+  
             addBooksToPage();
               });
         }     
