@@ -12,73 +12,94 @@
     <title>Library App</title>
 
     <style>
-   
+
     </style>
 </head>
 
 <body>
     <div class="page-container">
         <div Class="header">
-    <h1>Welcome to your Library App</h1>
-    </div>
-    <div class="add-book-container">
-
-        <div class="form-container">
-        <form method="dialog">
-            <ul>
-                <li>
-                    <label for="title-input">Title: </label>
-                    <input type="text" id="title-input" name="book-title">
-                </li>
-
-                <li>
-                    <label for="author-input">Author: </label>
-                    <input type="text" id="author-input" name="book-title">
-                </li>
-
-                <li>
-                    <label for="pages-input">Pages: </label>
-                    <input type="number" id="pages-input" name="book-pages">
-                </li>
-
-                <li class="has-been-read">
-                    <label for="hasBeenRead-input">Has been read: </label>
-                 <input type = "radio" id="hasBeenRead-input" name="book-hasBeenRead" value="yes" checked="checked">
-        </li>
-                <li class="has-been-read">
-                    <label for="hasNotBeenRead-input">Has not been read: </label>
-                   <input type = "radio" id="hasNotBeenRead-input" name="book-hasBeenRead" value="no">
-                 
-                   
-                </li>
-
-                <li>
-                </li>
-            </ul>
-               
-        </form>
-        <button id="form-btn" type="submit">Add book</button>
-            
-</div>
-    </div>
-    <div class="library-cards-container">
-
-        <div class="card">
-            <ul>
-                <li id="card1-title">Title:</li>
-                <li>Author:</li>
-                <li>Pages</li>
-                <li>Has this been read?</li>
-            </ul>
+            <h1>Welcome to your Library App</h1>
         </div>
-    </div>
+        <div class="add-book-container">
 
-    <footer>
-        <span>Library App, a fun way to keep track of the books you read.</span></footer>
-</div>
+            <div class="form-container">
+                <form method="dialog">
+                    <ul>
+                        <li>
+                            <label for="title-input">Title: </label>
+                            <input type="text" id="title-input" name="book-title">
+                        </li>
+
+                        <li>
+                            <label for="author-input">Author: </label>
+                            <input type="text" id="author-input" name="book-title">
+                        </li>
+
+                        <li>
+                            <label for="pages-input">Pages: </label>
+                            <input type="number" id="pages-input" name="book-pages">
+                        </li>
+
+                        <li class="has-been-read">
+                            <label for="hasBeenRead-input">Has been read: </label>
+                            <input type="radio" id="hasBeenRead-input" name="book-hasBeenRead" value="yes"
+                                checked="checked">
+                        </li>
+                        <li class="has-been-read">
+                            <label for="hasNotBeenRead-input">Has not been read: </label>
+                            <input type="radio" id="hasNotBeenRead-input" name="book-hasBeenRead" value="no">
+
+
+                        </li>
+
+                        <li>
+                        </li>
+                    </ul>
+
+                </form>
+                <button id="form-btn" type="submit">Add book</button>
+
+            </div>
+        </div>
+
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Author</th>
+                        <th>Pages</th>
+                        <th>Read status</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Bible</td>
+                        <td>Luke</td>
+                        <td>100</td>
+                        <td>Not read</td>
+                        <td>Remove</td>
+                    </tr>
+                </tbody>
+            </table>
+
+
+
+        </div>
+
+
+        <footer>
+            <span>Library App, a fun way to keep track of the books you read.</span>
+        </footer>
+    </div>
     <script>
 
         let myLibrary = [];
+
+
 
         function Book(title, author, pages, hasBeenRead) {
             this.title = title;
@@ -87,104 +108,81 @@
             this["Has this been read"] = hasBeenRead;
         }
 
-        Book.prototype.toggleRead = function() {
-            if (this["Has this been read"]=="yes") {
-                this["Has this been read"] = "no";                
+
+        Book.prototype.toggleRead = function () {
+            if (this["Has this been read"] == "yes") {
+                this["Has this been read"] = "no";
             }
 
-            else if  (this["Has this been read"]=="no") { 
+            else if (this["Has this been read"] == "no") {
                 this["Has this been read"] = "yes";
-            }    
+            }
 
             addBooksToPage();
         }
 
         const addBookBtn = document.querySelector("#form-btn");
-       
         const title = document.querySelector('#title-input');
         const author = document.querySelector('#author-input');
         const pages = document.querySelector('#pages-input');
-       
-      
-        
+
         addBookBtn.addEventListener('click', () => {
-            let hasBeenRead = document.querySelector('input[name="book-hasBeenRead"]:checked');         
+            let hasBeenRead = document.querySelector('input[name="book-hasBeenRead"]:checked');
             let foo = new Book(title.value, author.value, pages.value, hasBeenRead.value);
             myLibrary.push(foo);
-            addBooksToPage();          
-   
+            addBooksToPage();
+
         });
 
-       let libraryCards = document.querySelector('.library-cards-container');
+        let tableBody = document.querySelector('tbody');
 
-        function addBooksToPage(){
-            libraryCards.innerHTML="";
+        function addBooksToPage() {
+            tableBody.innerHTML = "";
             createBook();
         }
 
+        function createBook() {
 
-       function createBook(){   
             myLibrary.forEach(element => {
                 let bookId = myLibrary.indexOf(element);
-                let card = document.createElement('div');
-            card.setAttribute('id', "bookCard"+bookId);
-            card.className = "card";
-            let list = document.createElement('ul');
+                let row = tableBody.insertRow(-1)
+                row.setAttribute('id', "row"+bookId);
+                let cell1 = row.insertCell(0);
+                let cell2 = row.insertCell(1);
+                let cell3 = row.insertCell(2);
+                let cell4 = row.insertCell(3);
+                let cell5 = row.insertCell(4);
 
-            let keys = Object.keys(element);
-            
-             for (var i = 0; i < keys.length; i++) {
-             let keyProp = element[keys[i]];
-                
-                let listItem = document.createElement('li');
-                listItem.setAttribute('id', keyProp);                    
-                listItem.innerText = `${keys[i]}: ${keyProp}`;                
-                list.appendChild(listItem);                                  
-            }
+                cell1.innerText = element.title;
+                cell2.innerText = element.author;
+                cell3.innerText = element.pages;
+              cell4.innerText = element["Has this been read"];
+                cell4.innerHTML =  `<button id = "status${bookId}">${ element["Has this been read"]}</button>`;
+
+              cell5.innerHTML = `<button id = "rmvBtn${bookId}">Delete</button>`;
+
           
-            card.appendChild(list);
-            
-            let beenReadBtn = document.createElement('button');
-            beenReadBtn.setAttribute('id', "beenRead"+bookId);
-            beenReadBtn.innerText = "Has been read?";
-            card.appendChild(beenReadBtn);
+                deleteBookCard(bookId);
+                hasBeenReadToggle(bookId)
+            });
+        }    
 
-
-            let removeBookBtn = document.createElement('button');
-            removeBookBtn.setAttribute('id', "rmvBtn"+bookId);
-            removeBookBtn.innerText = "Remove book";
-            card.appendChild(removeBookBtn);
-
-           
-
-            libraryCards.appendChild(card);
-            deleteBookCard(bookId);
-              hasBeenReadToggle(bookId);
-            });     
-            
-            
-       } 
-
-       function hasBeenReadToggle(bookId) {
-        const hasBeenReadBtn = document.querySelector("#beenRead"+bookId);
-        hasBeenReadBtn.addEventListener('click', () => {
-          
-           myLibrary[bookId].toggleRead();   
-
-        });
-       }
+        function hasBeenReadToggle(bookId) {
+            const hasBeenReadBtn = document.querySelector("#status" + bookId);
+            hasBeenReadBtn.addEventListener('click', () => {
+                myLibrary[bookId].toggleRead();
+            });
+        }
 
         function deleteBookCard(bookId) {
             const removeBookBtn = document.querySelector(`#rmvBtn${bookId}`);
-                      removeBookBtn.addEventListener('click', () => {
-       
-            myLibrary.splice(bookId, 1);
-  
-            addBooksToPage();
-              });
-        }     
+            removeBookBtn.addEventListener('click', () => {
+                myLibrary.splice(bookId, 1);
+                addBooksToPage();
+            });
+        }
 
-       
+
     </script>
 
 </body>
