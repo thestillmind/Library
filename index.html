@@ -156,19 +156,19 @@
                 cell1.innerText = element.title;
                 cell2.innerText = element.author;
                 cell3.innerText = element.pages;
-              //  cell4.innerText = element["Has this been read"];
-              "beenRead"+bookId
-              cell5.innerHTML = `<button id = "rmvBtn${bookId}">Delete</button>`;
+              cell4.innerText = element["Has this been read"];
+                cell4.innerHTML =  `<button id = "status${bookId}">${ element["Has this been read"]}</button>`;
 
               cell5.innerHTML = `<button id = "rmvBtn${bookId}">Delete</button>`;
 
+          
                 deleteBookCard(bookId);
-
+                hasBeenReadToggle(bookId)
             });
         }    
 
         function hasBeenReadToggle(bookId) {
-            const hasBeenReadBtn = document.querySelector("#beenRead" + bookId);
+            const hasBeenReadBtn = document.querySelector("#status" + bookId);
             hasBeenReadBtn.addEventListener('click', () => {
                 myLibrary[bookId].toggleRead();
             });
