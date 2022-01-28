@@ -38,7 +38,7 @@
 
                         <li>
                             <label for="pages-input">Pages: </label>
-                            <input type="number" id="pages-input" name="book-pages" min = 0>
+                            <input type="number" id="pages-input" name="book-pages" min=0>
                         </li>
 
                         <li class="has-been-read">
@@ -96,14 +96,7 @@
         </footer>
     </div>
     <script>
-
-
-
-
         let myLibrary = [];
-
-
-
         function Book(title, author, pages, hasBeenRead) {
             this.title = title;
             this.author = author;
@@ -111,16 +104,13 @@
             this["Has this been read"] = hasBeenRead;
         }
 
-
         Book.prototype.toggleRead = function () {
             if (this["Has this been read"] == "yes") {
                 this["Has this been read"] = "no";
             }
-
             else if (this["Has this been read"] == "no") {
                 this["Has this been read"] = "yes";
             }
-
             addBooksToPage();
         }
 
@@ -128,23 +118,28 @@
         const title = document.querySelector('#title-input');
         const author = document.querySelector('#author-input');
         const pages = document.querySelector('#pages-input');
-
         addBookBtn.addEventListener('click', () => {
             validateForm();
+            clearForm();
+        });
+
+        function validateForm() {
+            if (title.value == "") {
+                alert("Please enter a title");
+                return false;
+            }
+
             let hasBeenRead = document.querySelector('input[name="book-hasBeenRead"]:checked');
             let foo = new Book(title.value, author.value, pages.value, hasBeenRead.value);
             myLibrary.push(foo);
             addBooksToPage();
+        }
 
-        });
-
-        function validateForm() {
-   
-  if (title.value == "") {
-    alert("Please enter a title");
-    return false;
-  }
-}
+        function clearForm() {
+                title.value = "";
+                author.value = "";
+                pages.value="";
+            }
 
         let tableBody = document.querySelector('tbody');
 
@@ -154,11 +149,10 @@
         }
 
         function createBook() {
-
             myLibrary.forEach(element => {
                 let bookId = myLibrary.indexOf(element);
                 let row = tableBody.insertRow(-1)
-                row.setAttribute('id', "row"+bookId);
+                row.setAttribute('id', "row" + bookId);
                 let cell1 = row.insertCell(0);
                 let cell2 = row.insertCell(1);
                 let cell3 = row.insertCell(2);
@@ -168,16 +162,14 @@
                 cell1.innerText = element.title;
                 cell2.innerText = element.author;
                 cell3.innerText = element.pages;
-              cell4.innerText = element["Has this been read"];
-                cell4.innerHTML =  `<button id = "status${bookId}">${ element["Has this been read"]}</button>`;
+                cell4.innerText = element["Has this been read"];
+                cell4.innerHTML = `<button id = "status${bookId}">${element["Has this been read"]}</button>`;
 
-              cell5.innerHTML = `<button id = "rmvBtn${bookId}">Delete</button>`;
-
-          
+                cell5.innerHTML = `<button id = "rmvBtn${bookId}">Delete</button>`;
                 deleteBookCard(bookId);
                 hasBeenReadToggle(bookId)
             });
-        }    
+        }
 
         function hasBeenReadToggle(bookId) {
             const hasBeenReadBtn = document.querySelector("#status" + bookId);
