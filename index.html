@@ -24,11 +24,11 @@
         <div class="add-book-container">
 
             <div class="form-container">
-                <form method="dialog">
+                <form method="dialog" name="myForm">
                     <ul>
                         <li>
                             <label for="title-input">Title: </label>
-                            <input type="text" id="title-input" name="book-title">
+                            <input type="text" id="title-input" name="book-title" onsubmit="return validateForm()">
                         </li>
 
                         <li>
@@ -38,7 +38,7 @@
 
                         <li>
                             <label for="pages-input">Pages: </label>
-                            <input type="number" id="pages-input" name="book-pages">
+                            <input type="number" id="pages-input" name="book-pages" min = 0>
                         </li>
 
                         <li class="has-been-read">
@@ -97,6 +97,9 @@
     </div>
     <script>
 
+
+
+
         let myLibrary = [];
 
 
@@ -127,12 +130,21 @@
         const pages = document.querySelector('#pages-input');
 
         addBookBtn.addEventListener('click', () => {
+            validateForm();
             let hasBeenRead = document.querySelector('input[name="book-hasBeenRead"]:checked');
             let foo = new Book(title.value, author.value, pages.value, hasBeenRead.value);
             myLibrary.push(foo);
             addBooksToPage();
 
         });
+
+        function validateForm() {
+   
+  if (title.value == "") {
+    alert("Please enter a title");
+    return false;
+  }
+}
 
         let tableBody = document.querySelector('tbody');
 
