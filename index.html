@@ -75,7 +75,7 @@
                         <th></th>
                     </tr>
                 </thead>
-                <tbody>
+               <!-- <tbody>
                     <tr>
                         <td>Bible</td>
                         <td>Luke</td>
@@ -83,9 +83,12 @@
                         <td>Not read</td>
                         <td>Remove</td>
                     </tr>
-                </tbody>
+                </tbody>-->
+                <tbody><tr id="row0"><td>Sandles</td><td>bible</td><td>187</td><td><button id="status0">no</button></td><td><button id="rmvBtn0">Delete</button></td></tr><tr id="row1"><td>bible</td><td>bible</td><td>1288</td><td>
+             <button class="readBtn" id="status1">yes</button></td><td><button id="rmvBtn1">Delete</button></td></tr><tr id="row2"><td>book</td><td>book</td><td>88</td><td><button id="status2">no</button></td><td><button id="rmvBtn2">Delete</button></td></tr></tbody>
             </table>
 
+            
 
 
         </div>
@@ -165,7 +168,7 @@
                 cell2.innerText = element.author;
                 cell3.innerText = element.pages;
                 cell4.innerText = element["Has this been read"];
-                cell4.innerHTML = `<button id = "status${bookId}">${element["Has this been read"]}</button>`;
+                cell4.innerHTML = `<button class="readBtn" id = "status${bookId}">${element["Has this been read"]}</button>`;
 
                 cell5.innerHTML = `<button id = "rmvBtn${bookId}">Delete</button>`;
                 deleteBookCard(bookId);
